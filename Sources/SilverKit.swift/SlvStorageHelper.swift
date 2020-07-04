@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class CSBStorageHelper {
+public class SlvStorageHelper {
     
     fileprivate init() { }
     
