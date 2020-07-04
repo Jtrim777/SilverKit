@@ -67,6 +67,36 @@ public extension String {
         }
     }
     
+    /// Returns the capturing groups of the first match for the regular expression
+    /// - Parameter regex: The regular expression to match
+    /// - Returns: The relevant captured groups
+    /// - Version: 1.1.0
+    func firstMatchGroups(regex : String) -> [String]? {
+        let regex = try? NSRegularExpression(pattern: regex)
+        
+        if regex == nil {
+            return nil
+        }
+        
+        let results = regex!.matches(in: self, range: NSRange(self.startIndex..., in: self))
+        
+        if results.count > 0 {
+            var out : [String] = []
+            
+            var i = 1
+            while i < results[0].numberOfRanges - 1 {
+                let r = results[0].range(at: i)
+                let tr = r.lowerBound ..< r.upperBound
+                
+                out.append(self[tr])
+            }
+            
+            return out
+        }
+        
+        return nil
+    }
+    
     /// Returns all of the indicies in this string of the specified character
     func indices(of character:String) -> [Int] {
         var out:[Int] = []
